@@ -1,0 +1,1878 @@
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon May 20 12:54:23 2024
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> CREATE TABLE Student (
+  2      student_id INT PRIMARY KEY,
+  3      student_name VARCHAR2(50) NOT NULL,
+  4      course_name VARCHAR2(50) NOT NULL
+  5  );
+SP2-0640: Not connected
+SQL> conn
+Enter user-name: system/dksql
+Connected.
+SQL> CREATE TABLE Student (
+  2      student_id INT PRIMARY KEY,
+  3      student_name VARCHAR2(50) NOT NULL,
+  4      course_name VARCHAR2(50) NOT NULL
+  5  );
+CREATE TABLE Student (
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> select * from Student;
+
+STUDENT_ID
+----------
+STUDENT_NAME
+--------------------------------------------------------------------------------
+     MARK1      MARK2      MARK3      MARK4      MARK5
+---------- ---------- ---------- ---------- ----------
+         5
+Eve Black
+        95       89.5         93       91.5         94
+
+         1
+Alice johnson
+        95       89.5         93       91.5         94
+
+STUDENT_ID
+----------
+STUDENT_NAME
+--------------------------------------------------------------------------------
+     MARK1      MARK2      MARK3      MARK4      MARK5
+---------- ---------- ---------- ---------- ----------
+
+         2
+Bob smith
+        95       89.5         93       91.5         94
+
+         3
+Carol White
+
+STUDENT_ID
+----------
+STUDENT_NAME
+--------------------------------------------------------------------------------
+     MARK1      MARK2      MARK3      MARK4      MARK5
+---------- ---------- ---------- ---------- ----------
+        95       89.5         93       91.5         94
+
+         4
+David brown
+        95       89.5         93       91.5         94
+
+         6
+
+STUDENT_ID
+----------
+STUDENT_NAME
+--------------------------------------------------------------------------------
+     MARK1      MARK2      MARK3      MARK4      MARK5
+---------- ---------- ---------- ---------- ----------
+Alice Johnson
+      85.5         92         78       88.5         90
+
+         7
+Bob Smith
+        76       85.5         89       90.5         78
+
+
+STUDENT_ID
+----------
+STUDENT_NAME
+--------------------------------------------------------------------------------
+     MARK1      MARK2      MARK3      MARK4      MARK5
+---------- ---------- ---------- ---------- ----------
+         8
+Carol White
+        90       92.5         85         88         91
+
+         9
+David Brown
+      65.5         70         68       72.5         75
+
+STUDENT_ID
+----------
+STUDENT_NAME
+--------------------------------------------------------------------------------
+     MARK1      MARK2      MARK3      MARK4      MARK5
+---------- ---------- ---------- ---------- ----------
+
+        10
+Eve Black
+        95       89.5         93       91.5         94
+
+
+10 rows selected.
+
+SQL> alter table student rename to student_e;
+
+Table altered.
+
+SQL> CREATE TABLE Student (
+  2      student_id INT PRIMARY KEY,
+  3      student_name VARCHAR2(50) NOT NULL,
+  4      course_name VARCHAR2(50) NOT NULL
+  5  );
+
+Table created.
+
+SQL> CREATE TABLE Instructor (
+  2      instructor_id INT PRIMARY KEY,
+  3      instructor_name VARCHAR2(50) NOT NULL,
+  4      department VARCHAR2(50) NOT NULL,
+  5      sect_name VARCHAR2(50) NOT NULL
+  6  );
+
+Table created.
+
+SQL> CREATE TABLE Marks (
+  2      student_id INT,
+  3      score INT,
+  4      FOREIGN KEY (student_id) REFERENCES Student(student_id)
+  5  );
+
+Table created.
+
+SQL> select * from student;
+
+STUDENT_ID STUDENT_NAME
+---------- --------------------------------------------------
+COURSE_NAME
+--------------------------------------------------
+         1 durgesh
+cse
+
+
+SQL>
+
+
+
+
+SQL*Plus: Release 11.2.0.2.0 Production on Tue May 21 08:07:42 2024
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> conn
+Enter user-name: system/dksql
+Connected.
+SQL> set serveroutput on;
+SQL> declare
+  2     name varchar(10) :='durgesh';
+  3  begin
+  4     dbms_output.put_line(name);
+  5  end;
+  6  /
+durgesh
+
+PL/SQL procedure successfully completed.
+
+SQL> create function area(radius number)
+  2  is
+  3  pi constant number(7,3):=3.14;
+  4  ar number(7,3);
+  5  begin
+  6    ar:= pi*(radius*radius);
+  7  return ar;
+  8  end;
+  9  /
+
+Warning: Function created with compilation errors.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create function area(radius number) return number
+  2  is
+  3  pi constant number(7,3):=3.14;
+  4  ar number(7,3);
+  5  begin
+  6    ar:= pi*(radius*radius);
+  7  return ar;
+  8* end;
+SQL> /
+create function area(radius number) return number
+                *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  create function area1(radius number) return number
+  2  is
+  3  pi constant number(7,3):=3.14;
+  4  ar number(7,3);
+  5  begin
+  6    ar:= pi*(radius*radius);
+  7  return ar;
+  8* end;
+SQL> /
+
+Function created.
+
+SQL> begin
+  2     dbms_output.put_line((25));
+  3  end;
+  4  /
+25
+
+PL/SQL procedure successfully completed.
+
+SQL> d
+SP2-0042: unknown command "d" - rest of line ignored.
+SQL> ed
+Wrote file afiedt.buf
+
+  1  begin
+  2     dbms_output.put_line(area1(25));
+  3* end;
+SQL> /
+1962.5
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from emp;
+
+     EMPNO ENAME
+---------- --------------------------------------------------
+JOB                                                       MGR HIREDATE
+-------------------------------------------------- ---------- ---------
+    SALARY     DEPTNO
+---------- ----------
+      7369 SMITH
+CLERK                                                    7902 17-DEC-80
+       800         20
+
+      7499 ALLEN
+SALESMAN                                                 7698 20-FEB-81
+      1600         30
+
+     EMPNO ENAME
+---------- --------------------------------------------------
+JOB                                                       MGR HIREDATE
+-------------------------------------------------- ---------- ---------
+    SALARY     DEPTNO
+---------- ----------
+
+      7521 WARD
+SALESMAN                                                 7698 22-FEB-81
+      1250         30
+
+      7566 JONES
+MANAGER                                                  7839 02-APR-81
+
+     EMPNO ENAME
+---------- --------------------------------------------------
+JOB                                                       MGR HIREDATE
+-------------------------------------------------- ---------- ---------
+    SALARY     DEPTNO
+---------- ----------
+      2975         20
+
+      7698 BLAKE
+MANAGER                                                  7839 01-MAY-81
+      2850         30
+
+      7788 SCOTT
+
+     EMPNO ENAME
+---------- --------------------------------------------------
+JOB                                                       MGR HIREDATE
+-------------------------------------------------- ---------- ---------
+    SALARY     DEPTNO
+---------- ----------
+ANALYST                                                  7566 19-APR-87
+      3000         20
+
+      7839 KING
+PRESIDENT                                                     17-NOV-81
+      5000         10
+
+
+     EMPNO ENAME
+---------- --------------------------------------------------
+JOB                                                       MGR HIREDATE
+-------------------------------------------------- ---------- ---------
+    SALARY     DEPTNO
+---------- ----------
+      7844 TURNER
+SALESMAN                                                 7698 08-SEP-81
+      1500         30
+
+      7876 ADAMS
+CLERK                                                    7788 23-MAY-87
+      1100         20
+
+     EMPNO ENAME
+---------- --------------------------------------------------
+JOB                                                       MGR HIREDATE
+-------------------------------------------------- ---------- ---------
+    SALARY     DEPTNO
+---------- ----------
+
+
+9 rows selected.
+
+SQL> declare
+  2     vname emp.ename%type;
+  3  begin
+  4     select ename into vname from emp where empno=7876;
+  5    dbms_output.put_line(ename);
+  6  end;
+  7  /
+  dbms_output.put_line(ename);
+                       *
+ERROR at line 5:
+ORA-06550: line 5, column 24:
+PLS-00201: identifier 'ENAME' must be declared
+ORA-06550: line 5, column 3:
+PL/SQL: Statement ignored
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2     vname emp.ename%type;
+  3  begin
+  4     select ename into vname from emp where empno=7876;
+  5    dbms_output.put_line(vname);
+  6* end;
+SQL> /
+ADAMS
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  v num NJMBER
+  3  BEGIN 1
+  4  9;
+  5  IF v num < O THEN
+  6  DBMS OUTPUT. PUT LINE ('Inside The IF') ;
+  7  END IF;
+  8  DBMS OUTPUT. PUT LINE ('Ouside The IF') ;
+  9  END;
+ 10  /
+v num NJMBER
+      *
+ERROR at line 2:
+ORA-06550: line 2, column 7:
+PLS-00103: Encountered the symbol "NJMBER" when expecting one of the following:
+:= . ( @ % ; not null range default character
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  v_num NuMBER:=9;
+  3  BEGIN
+  4  IF v_num < 0 THEN
+  5  DBMS OUTPUT. PUT LINE ('Inside The IF') ;
+  6  END IF;
+  7  DBMS OUTPUT. PUT LINE ('Ouside The IF') ;
+  8* END;
+  9  /
+DBMS OUTPUT. PUT LINE ('Inside The IF') ;
+     *
+ERROR at line 5:
+ORA-06550: line 5, column 6:
+PLS-00103: Encountered the symbol "OUTPUT" when expecting one of the following:
+:= . ( @ % ;
+ORA-06550: line 5, column 23:
+PLS-00103: Encountered the symbol "(" when expecting one of the following:
+, from into bulk
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  v_num NuMBER:=9;
+  3  BEGIN
+  4  IF v_num < 0 THEN
+  5  DBMS_OUTPUT.PUT_LINE('Inside The IF') ;
+  6  END IF;
+  7  DBMS_OUTPUT.PUT_LINE('Ouside The IF') ;
+  8* END;
+SQL> /
+Ouside The IF
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  v_num NuMBER:='&enter num';
+  3  BEGIN
+  4  IF v_num < 0 THEN
+  5  DBMS_OUTPUT.PUT_LINE('Inside The IF') ;
+  6  END IF;
+  7  DBMS_OUTPUT.PUT_LINE('Ouside The IF') ;
+  8* END;
+SQL> /
+Enter value for enter: 3
+old   2: v_num NuMBER:='&enter num';
+new   2: v_num NuMBER:='3 num';
+DECLARE
+*
+ERROR at line 1:
+ORA-06502: PL/SQL: numeric or value error: character to number conversion error
+ORA-06512: at line 2
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  DECLARE
+  2  v_num NuMBER:='&enter_num';
+  3  BEGIN
+  4  IF v_num < 0 THEN
+  5  DBMS_OUTPUT.PUT_LINE('Inside The IF') ;
+  6  END IF;
+  7  DBMS_OUTPUT.PUT_LINE('Ouside The IF') ;
+  8* END;
+SQL> /
+Enter value for enter_num: 9
+old   2: v_num NuMBER:='&enter_num';
+new   2: v_num NuMBER:='9';
+Ouside The IF
+
+PL/SQL procedure successfully completed.
+
+SQL>
+
+SQL*Plus: Release 11.2.0.2.0 Production on Wed May 22 18:49:28 2024
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> conn
+Enter user-name: system/dksql
+Connected.
+SQL> CREATE TABLE Invoicedkmodel
+  2   (
+  3      cno INT,
+  4      item_no INT,
+  5      quantity INT,
+  6      inv_date DATE,
+  7  )
+  8  /
+)
+*
+ERROR at line 7:
+ORA-00904: : invalid identifier
+
+
+SQL> CREATE TABLE Invoicedkmodel
+  2   (
+  3      cno INT,
+  4      item_no INT,
+  5      quantity INT,
+  6      inv_date DATE,
+  7  )
+  8  /
+)
+*
+ERROR at line 7:
+ORA-00904: : invalid identifier
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  CREATE TABLE Invoicedkmodel
+  2   (
+  3      cno INT,
+  4      item_no INT,
+  5      quantity INT,
+  6      inv_date DATE,
+  7  )
+  8* ;
+SQL> /
+)
+*
+ERROR at line 7:
+ORA-00904: : invalid identifier
+
+
+SQL> CREATE TABLE Invoicedkmodel
+  2   (
+  3      cno INT,
+  4      item_no INT,
+  5      quantity INT,
+  6      inv_date DATE,
+  7  )
+  8  /
+)
+*
+ERROR at line 7:
+ORA-00904: : invalid identifier
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  CREATE TABLE Invoicedkmodel
+  2   (
+  3      cno INT,
+  4      item_no INT,
+  5      quantity INT,
+  6      inv_date DATE,
+  7* )
+SQL> CREATE TABLE Invoicedkmodel
+  2   (
+  3      cno INT,
+  4      item_no INT,
+  5      quantity INT,
+  6      inv_date DATE,
+  7  )
+  8  ;
+)
+*
+ERROR at line 7:
+ORA-00904: : invalid identifier
+
+
+SQL> CREATE TABLE Invoicedkmodel
+  2   (
+  3      cno INT,
+  4      item_no INT,
+  5      quantity INT,
+  6      inv_date DATE,
+  7  )
+  8  ;
+)
+*
+ERROR at line 7:
+ORA-00904: : invalid identifier
+
+
+SQL> CREATE TABLE Invoicedkmodel
+  2   (
+  3      cno INT,
+  4      item_no INT,
+  5      quantity INT,
+  6      inv_date DATE,
+  7  )
+  8  CREATE TABLE Invoicedkmodel (    cno INT,    item_no INT,    quantity INT,    inv_date DATE);
+)
+*
+ERROR at line 7:
+ORA-00904: : invalid identifier
+
+
+SQL> CREATE TABLE Invoicedkmodel (    cno INT,    item_no INT,    quantity INT,    inv_date DATE);
+
+Table created.
+
+SQL> INSERT INTO Customer (cno, cname) VALUES
+  2  (1, 'John'),
+  3  (2, 'Alice'),
+  4  (3, 'Bob');
+(1, 'John'),
+           *
+ERROR at line 2:
+ORA-00933: SQL command not properly ended
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  INSERT INTO Customer (cno, cname) VALUES
+  2* (1, 'John');
+SQL> /
+(1, 'John');
+           *
+ERROR at line 2:
+ORA-00911: invalid character
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  INSERT INTO Customer (cno, cname) VALUES
+  2* (1, 'John');
+SQL> ;
+  1  INSERT INTO Customer (cno, cname) VALUES
+  2* (1, 'John');
+SQL> INSERT INTO Customer (cno, cname) VALUES
+  2  (1, 'John');
+INSERT INTO Customer (cno, cname) VALUES
+                           *
+ERROR at line 1:
+ORA-00904: "CNAME": invalid identifier
+
+
+SQL> /
+INSERT INTO Customer (cno, cname) VALUES
+                           *
+ERROR at line 1:
+ORA-00904: "CNAME": invalid identifier
+
+
+SQL> INSERT INTO Customer (cno, cname) VALUES
+  2  (1, 'John');
+INSERT INTO Customer (cno, cname) VALUES
+                           *
+ERROR at line 1:
+ORA-00904: "CNAME": invalid identifier
+
+
+SQL> /
+INSERT INTO Customer (cno, cname) VALUES
+                           *
+ERROR at line 1:
+ORA-00904: "CNAME": invalid identifier
+
+
+SQL> INSERT INTO Customer (cno, cname) VALUES
+  2  (1, 'John');
+INSERT INTO Customer (cno, cname) VALUES
+                           *
+ERROR at line 1:
+ORA-00904: "CNAME": invalid identifier
+
+
+SQL> /
+INSERT INTO Customer (cno, cname) VALUES
+                           *
+ERROR at line 1:
+ORA-00904: "CNAME": invalid identifier
+
+
+SQL> INSERT INTO Customer (cno, cname) VALUES
+  2  (1, 'John');
+INSERT INTO Customer (cno, cname) VALUES
+                           *
+ERROR at line 1:
+ORA-00904: "CNAME": invalid identifier
+
+
+SQL> /
+INSERT INTO Customer (cno, cname) VALUES
+                           *
+ERROR at line 1:
+ORA-00904: "CNAME": invalid identifier
+
+
+SQL> INSERT INTO Customer (cno, cname) VALUES
+  2  (1,'john');
+INSERT INTO Customer (cno, cname) VALUES
+                           *
+ERROR at line 1:
+ORA-00904: "CNAME": invalid identifier
+
+
+SQL> INSERT INTO Customerdkmodel (cno, cname) VALUES
+  2  (1,'john');
+
+1 row created.
+
+SQL> INSERT INTO Customerdkmodel (cno, cname) VALUES
+  2  (2,'johnqswdef');;
+(2,'johnqswdef');
+                *
+ERROR at line 2:
+ORA-00911: invalid character
+
+
+SQL> INSERT INTO Customerdkmodel (cno, cname) VALUES
+  2  (2,'johnqswdef');
+
+1 row created.
+
+SQL> INSERT INTO Item (item_no, name, quantity, price) VALUES
+  2  (1, 'Sony TV', 10, 999.99);
+INSERT INTO Item (item_no, name, quantity, price) VALUES
+                                           *
+ERROR at line 1:
+ORA-00904: "PRICE": invalid identifier
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  INSERT INTO Itemdkmodel (item_no, name, quantity, price) VALUES
+  2* (1, 'Sony TV', 10, 999.99)
+SQL> ;
+  1  INSERT INTO Itemdkmodel (item_no, name, quantity, price) VALUES
+  2* (1, 'Sony TV', 10, 999.99)
+SQL> /
+
+1 row created.
+
+SQL> select * from customerdkmodel;
+
+       CNO CNAME
+---------- --------------------------------------------------
+         4 durgesh
+         5 durgesh
+         6 durgesh
+         7 durgesh
+         1 john
+         2 johnqswdef
+
+6 rows selected.
+
+SQL> selec * from itemdkmodel;
+SP2-0734: unknown command beginning "selec * fr..." - rest of line ignored.
+SQL> select * from itemdkmodel;
+
+   ITEM_NO NAME                                                 QUANTITY
+---------- -------------------------------------------------- ----------
+     PRICE
+----------
+         1 Sony TV                                                    10
+    999.99
+
+
+SQL> select * from invoicedkmodel;
+
+no rows selected
+
+SQL> insert into invoicedkmodel (1,1,2,'22-nov-22');
+insert into invoicedkmodel (1,1,2,'22-nov-22')
+                            *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert into invoicedkmodel  values (1,1,2,'22-nov-22');
+
+1 row created.
+
+SQL> insert into invoicedkmodel  values (1,1,2,'23-nov-22');
+
+1 row created.
+
+SQL> insert into invoicedkmodel  values (1,1,2,'24-nov-22');
+
+1 row created.
+
+SQL> CREATE OR REPLACE FUNCTION total_items_sold(date_param IN DATE)RETURN NUMBERIS    total_items NUMBER;BEGIN    SELECT SUM(quantity)    INTO total_items    FROM Invoice    WHERE TRUNC(date) = TRUNC(date_param);        RETURN total_items;EXCEPTION    WHEN NO_DATA_FOUND THEN        RETURN 0;END;/
+  2  /
+
+Warning: Function created with compilation errors.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  CREATE OR REPLACE FUNCTION total_items_sold(date_param IN DATE)
+  2  RETURN NUMBER
+  3  IS
+  4      total_items NUMBER;
+  5  BEGIN
+  6      SELECT SUM(quantity)
+  7      INTO total_items
+  8      FROM Invoice
+  9      WHERE TRUNC(date) = TRUNC(date_param);
+ 10      RETURN total_items;
+ 11  EXCEPTION
+ 12      WHEN NO_DATA_FOUND THEN
+ 13          RETURN 0;
+ 14* END;
+ 15  /
+
+Warning: Function created with compilation errors.
+
+SQL> show error
+Errors for FUNCTION TOTAL_ITEMS_SOLD:
+
+LINE/COL ERROR
+-------- -----------------------------------------------------------------
+6/5      PL/SQL: SQL Statement ignored
+9/17     PL/SQL: ORA-00936: missing expression
+SQL> ed
+Wrote file afiedt.buf
+
+  1  CREATE OR REPLACE PROCEDURE find_customers_purchased_sony_tv
+  2  IS
+  3  BEGIN
+  4      FOR customer_rec IN (
+  5          SELECT DISTINCT c.cname
+  6          FROM Invoice i
+  7          JOIN Customer c ON i.cno = c.cno
+  8          JOIN Item item ON i.item_no = item.item_no
+  9          WHERE item.name = 'Sony TV'
+ 10      )
+ 11      LOOP
+ 12          DBMS_OUTPUT.PUT_LINE('Customer: ' || customer_rec.cname);
+ 13      END LOOP;
+ 14* END;
+SQL> /
+CREATE OR REPLACE PROCEDURE find_customers_purchased_sony_tv
+                            *
+ERROR at line 1:
+ORA-00972: identifier is too long
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  CREATE OR REPLACE PROCEDURE sony_tv
+  2  IS
+  3  BEGIN
+  4      FOR customer_rec IN (
+  5          SELECT DISTINCT c.cname
+  6          FROM Invoice i
+  7          JOIN Customer c ON i.cno = c.cno
+  8          JOIN Item item ON i.item_no = item.item_no
+  9          WHERE item.name = 'Sony TV'
+ 10      )
+ 11      LOOP
+ 12          DBMS_OUTPUT.PUT_LINE('Customer: ' || customer_rec.cname);
+ 13      END LOOP;
+ 14* END;
+SQL> /
+
+Warning: Procedure created with compilation errors.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  CREATE OR REPLACE PROCEDURE find_customers_purchased_sony_tv
+  2  IS
+  3  BEGIN
+  4      FOR customer_rec IN (
+  5          SELECT DISTINCT c.cname
+  6          FROM Invoicedkmodel i
+  7          JOIN Customerdkmodel c ON i.cno = c.cno
+  8          JOIN Itemdkmodel item ON i.item_no = item.item_no
+  9          WHERE item.name = 'Sony TV'
+ 10      )
+ 11      LOOP
+ 12          DBMS_OUTPUT.PUT_LINE('Customer: ' || customer_rec.cname);
+ 13      END LOOP;
+ 14* END;
+SQL> /
+CREATE OR REPLACE PROCEDURE find_customers_purchased_sony_tv
+                            *
+ERROR at line 1:
+ORA-00972: identifier is too long
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  CREATE OR REPLACE PROCEDURE sony_tv
+  2  IS
+  3  BEGIN
+  4      FOR customer_rec IN (
+  5          SELECT DISTINCT c.cname
+  6          FROM Invoicedkmodel i
+  7          JOIN Customerdkmodel c ON i.cno = c.cno
+  8          JOIN Itemdkmodel item ON i.item_no = item.item_no
+  9          WHERE item.name = 'Sony TV'
+ 10      )
+ 11      LOOP
+ 12          DBMS_OUTPUT.PUT_LINE('Customer: ' || customer_rec.cname);
+ 13      END LOOP;
+ 14* END;
+SQL> /
+
+Procedure created.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  CREATE OR REPLACE TRIGGER check_quantity_and_date
+  2  BEFORE INSERT OR UPDATE ON Invoice
+  3  FOR EACH ROW
+  4  BEGIN
+  5      IF :NEW.quantity < 0 THEN
+  6          RAISE_APPLICATION_ERROR(-20001, 'Quantity cannot be negative');
+  7      END IF;
+  8      IF NOT (TO_DATE(:NEW.date, 'YYYY-MM-DD') IS NOT NULL) THEN
+  9          RAISE_APPLICATION_ERROR(-20002, 'Invalid date format');
+ 10      END IF;
+ 11* END;
+ 12  /
+
+Warning: Trigger created with compilation errors.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  CREATE OR REPLACE TRIGGER check_quantity_and_date
+  2  BEFORE INSERT OR UPDATE ON Invoicedkmodel
+  3  FOR EACH ROW
+  4  BEGIN
+  5      IF :NEW.quantity < 0 THEN
+  6          RAISE_APPLICATION_ERROR(-20001, 'Quantity cannot be negative');
+  7      END IF;
+  8      IF NOT (TO_DATE(:NEW.date, 'YYYY-MM-DD') IS NOT NULL) THEN
+  9          RAISE_APPLICATION_ERROR(-20002, 'Invalid date format');
+ 10      END IF;
+ 11* END;
+SQL> /
+CREATE OR REPLACE TRIGGER check_quantity_and_date
+                          *
+ERROR at line 1:
+ORA-04095: trigger 'CHECK_QUANTITY_AND_DATE' already exists on another table,
+cannot replace it
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  CREATE OR REPLACE TRIGGER checdate
+  2  BEFORE INSERT OR UPDATE ON Invoicedkmodel
+  3  FOR EACH ROW
+  4  BEGIN
+  5      IF :NEW.quantity < 0 THEN
+  6          RAISE_APPLICATION_ERROR(-20001, 'Quantity cannot be negative');
+  7      END IF;
+  8      IF NOT (TO_DATE(:NEW.date, 'YYYY-MM-DD') IS NOT NULL) THEN
+  9          RAISE_APPLICATION_ERROR(-20002, 'Invalid date format');
+ 10      END IF;
+ 11* END;
+SQL> /
+
+Warning: Trigger created with compilation errors.
+
+SQL> \show error
+SP2-0734: unknown command beginning "\show erro..." - rest of line ignored.
+SQL> show error
+Errors for TRIGGER CHECDATE:
+
+LINE/COL ERROR
+-------- -----------------------------------------------------------------
+5/21     PLS-00049: bad bind variable 'NEW.DATE'
+SQL> ed
+Wrote file afiedt.buf
+
+  1  CREATE OR REPLACE PROCEDURE find_customers_purchased_sony_tv
+  2  IS
+  3  BEGIN
+  4      FOR customer_rec IN (
+  5          SELECT DISTINCT c.cname
+  6          FROM Invoicedkmodel i
+  7          JOIN Customerdkmodel c ON i.cno = c.cno
+  8          JOIN Itemdkmodel item ON i.item_no = item.item_no
+  9          WHERE item.name = 'Sony TV'
+ 10      )
+ 11      LOOP
+ 12          DBMS_OUTPUT.PUT_LINE('Customer: ' || customer_rec.cname);
+ 13      END LOOP;
+ 14* END;
+SQL> /
+CREATE OR REPLACE PROCEDURE find_customers_purchased_sony_tv
+                            *
+ERROR at line 1:
+ORA-00972: identifier is too long
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  CREATE OR REPLACE PROCEDURE sony_tv
+  2  IS
+  3  BEGIN
+  4      FOR customer_rec IN (
+  5          SELECT DISTINCT c.cname
+  6          FROM Invoicedkmodel i
+  7          JOIN Customerdkmodel c ON i.cno = c.cno
+  8          JOIN Itemdkmodel item ON i.item_no = item.item_no
+  9          WHERE item.name = 'Sony TV'
+ 10      )
+ 11      LOOP
+ 12          DBMS_OUTPUT.PUT_LINE('Customer: ' || customer_rec.cname);
+ 13      END LOOP;
+ 14* END;
+SQL> /
+
+Procedure created.
+
+SQL> begin
+  2   sony_tv
+  3  end;
+  4  /
+end;
+*
+ERROR at line 3:
+ORA-06550: line 3, column 1:
+PLS-00103: Encountered the symbol "END" when expecting one of the following:
+:= . ( @ % ;
+The symbol ";" was substituted for "END" to continue.
+
+
+SQL> BEGIN    sony_tv; -- Call the procedureEND;/
+  2  ;
+  3  /
+;
+*
+ERROR at line 2:
+ORA-06550: line 2, column 1:
+PLS-00103: Encountered the symbol ";" when expecting one of the following:
+( begin case declare end exception exit for goto if loop mod
+null pragma raise return select update while with
+<an identifier> <a double-quoted delimited-identifier>
+<a bind variable> << continue close current delete fetch lock
+insert open rollback savepoint set sql execute commit forall
+merge pipe purge
+The symbol "end" was substituted for ";" to continue.
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  BEGIN    sony_tv;
+  2  END;
+  3* ;
+  4  /
+;
+*
+ERROR at line 3:
+ORA-06550: line 3, column 1:
+PLS-00103: Encountered the symbol ";"
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  BEGIN    sony_tv;
+  2* END;
+SQL> /
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from itemdkmodel;
+
+   ITEM_NO NAME                                                 QUANTITY
+---------- -------------------------------------------------- ----------
+     PRICE
+----------
+         1 Sony TV                                                    10
+    999.99
+
+
+SQL> select * from customerdkmodel;
+
+       CNO CNAME
+---------- --------------------------------------------------
+         4 durgesh
+         5 durgesh
+         6 durgesh
+         7 durgesh
+         1 john
+         2 johnqswdef
+
+6 rows selected.
+
+SQL> select * from invoicedkmodel;
+
+       CNO    ITEM_NO   QUANTITY INV_DATE
+---------- ---------- ---------- ---------
+         1          1          2 22-NOV-22
+         1          1          2 23-NOV-22
+         1          1          2 24-NOV-22
+
+SQL> begin
+  2  sony_tv;
+  3  end;
+  4  /
+
+PL/SQL procedure successfully completed.
+
+SQL> delete from invoicedkmodel where not in inv_date='22-nov-22';
+delete from invoicedkmodel where not in inv_date='22-nov-22'
+                                     *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> DELETE FROM invoicedkmodel WHERE inv_date <> TO_DATE('22-NOV-22', 'DD-MON-YY');
+
+2 rows deleted.
+
+SQL> begin
+  2  sony_tv;
+  3  end;
+  4  /
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  CREATE OR REPLACE FUNCTION total_items_sold(date_param IN DATE)
+  2  RETURN NUMBER
+  3  IS
+  4      total_items NUMBER;
+  5  BEGIN
+  6      SELECT SUM(quantity)
+  7      INTO total_items
+  8      FROM Invoice
+  9      WHERE inv_date = date_param; -- Use the date_param parameter
+ 10      RETURN total_items;
+ 11  EXCEPTION
+ 12      WHEN NO_DATA_FOUND THEN
+ 13          RETURN 0;
+ 14* END;
+ 15  /
+
+Warning: Function created with compilation errors.
+
+SQL> show error
+Errors for FUNCTION TOTAL_ITEMS_SOLD:
+
+LINE/COL ERROR
+-------- -----------------------------------------------------------------
+6/5      PL/SQL: SQL Statement ignored
+9/11     PL/SQL: ORA-00904: "INV_DATE": invalid identifier
+SQL> ed
+Wrote file afiedt.buf
+
+  1  CREATE OR REPLACE FUNCTION total_items_sold(date_param IN DATE)
+  2  RETURN NUMBER
+  3  IS
+  4      total_items NUMBER;
+  5  BEGIN
+  6      SELECT SUM(quantity)
+  7      INTO total_items
+  8      FROM invoicedkmodel
+  9      WHERE inv_date = date_param;
+ 10      RETURN total_items;
+ 11  EXCEPTION
+ 12      WHEN NO_DATA_FOUND THEN
+ 13          RETURN 0;
+ 14* END;
+ 15  /
+
+Function created.
+
+SQL> begin
+  2  total_items_sold('22-nov-22');
+  3  end;
+  4  /
+total_items_sold('22-nov-22');
+*
+ERROR at line 2:
+ORA-06550: line 2, column 1:
+PLS-00221: 'TOTAL_ITEMS_SOLD' is not a procedure or is undefined
+ORA-06550: line 2, column 1:
+PL/SQL: Statement ignored
+
+
+SQL> set serveroutput on
+SQL> begin
+  2  sony_tv;
+  3  end;
+  4  /
+Customer: john
+
+PL/SQL procedure successfully completed.
+
+SQL> begin
+  2  total_items_sold('22-nov-22');
+  3  end;
+  4  /
+total_items_sold('22-nov-22');
+*
+ERROR at line 2:
+ORA-06550: line 2, column 1:
+PLS-00221: 'TOTAL_ITEMS_SOLD' is not a procedure or is undefined
+ORA-06550: line 2, column 1:
+PL/SQL: Statement ignored
+
+
+SQL> begin
+  2  dbms_output.put_line(total_items_sold('22-nov-22');
+  3  end;
+  4  /
+dbms_output.put_line(total_items_sold('22-nov-22');
+                                                  *
+ERROR at line 2:
+ORA-06550: line 2, column 51:
+PLS-00103: Encountered the symbol ";" when expecting one of the following:
+. ( ) , * % & = - + < / > at in is mod remainder not rem =>
+<an exponent (**)> <> or != or ~= >= <= <> and or like like2
+like4 likec as between from using || multiset member
+submultiset
+The symbol ")" was substituted for ";" to continue.
+
+
+SQL> begin
+  2  dbms_output.put_line(total_items_sold('22-nov-22'));
+  3  end;
+  4  /
+2
+
+PL/SQL procedure successfully completed.
+
+SQL> CREATE OR REPLACE TRIGGER checdateBEFORE INSERT OR UPDATE ON InvoicedkmodelFOR EACH ROWBEGIN    IF :NEW.quantity < 0 THEN        RAISE_APPLICATION_ERROR(-20001, 'Quantity cannot be negative');    END IF;        IF NOT (TO_DATE(:NEW.inv_date, 'YYYY-MM-DD') IS NOT NULL) THEN        RAISE_APPLICATION_ERROR(-20002, 'Invalid date format');    END IF;END;/
+  2
+  3  /\
+  4
+  5
+  6  ;
+  7  /
+CREATE OR REPLACE TRIGGER checdateBEFORE INSERT OR UPDATE ON InvoicedkmodelFOR EACH ROWBEGIN    IF :NEW.quantity < 0 THEN        RAISE_APPLICATION_ERROR(-20001, 'Quantity cannot be negative');    END IF;
+           IF NOT (TO_DATE(:NEW.inv_date, 'YYYY-MM-DD') IS NOT NULL) THEN        RAISE_APPLICATION_ERROR(-20002, 'Invalid date format');    END IF;END;/
+                                         *
+ERROR at line 1:
+ORA-04071: missing BEFORE, AFTER or INSTEAD OF keyword
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  CREATE OR REPLACE TRIGGER checdate
+  2  BEFORE INSERT OR UPDATE ON Invoicedkmodel
+  3  FOR EACH ROW
+  4  BEGIN
+  5      IF :NEW.quantity < 0 THEN
+  6          RAISE_APPLICATION_ERROR(-20001, 'Quantity cannot be negative');
+  7      END IF;
+  8      IF NOT (TO_DATE(:NEW.inv_date, 'YYYY-MM-DD') IS NOT NULL) THEN
+  9          RAISE_APPLICATION_ERROR(-20002, 'Invalid date format');
+ 10      END IF;
+ 11* END;
+ 12  /
+
+Trigger created.
+
+SQL> insert into invoicedkmodel (1,1,1,1);
+insert into invoicedkmodel (1,1,1,1)
+                            *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert into invoicedkmodel values(1,1,1,1);
+insert into invoicedkmodel values(1,1,1,1)
+                                        *
+ERROR at line 1:
+ORA-00932: inconsistent datatypes: expected DATE got NUMBER
+
+
+SQL> insert into invoicedkmodel values(1,1,1,'32-dec-99');
+insert into invoicedkmodel values(1,1,1,'32-dec-99')
+                                        *
+ERROR at line 1:
+ORA-01847: day of month must be between 1 and last day of month
+
+
+SQL> insert into invoicedkmodel values(1,1,1,);
+insert into invoicedkmodel values(1,1,1,)
+                                        *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> insert into invoicedkmodel values(1,1,1,);
+insert into invoicedkmodel values(1,1,1,)
+                                        *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> insert into invoicedkmodel (quantity) values(-1);
+insert into invoicedkmodel (quantity) values(-1)
+            *
+ERROR at line 1:
+ORA-20001: Quantity cannot be negative
+ORA-06512: at "SYSTEM.CHECDATE", line 3
+ORA-04088: error during execution of trigger 'SYSTEM.CHECDATE'
+
+
+SQL>
+SQL>
+SQL> CREATE TABLE Student (
+  2      roll_no INT PRIMARY KEY,
+  3      name VARCHAR(255),
+  4      category VARCHAR(50),
+  5      district VARCHAR(100),
+  6      stagg VARCHAR(50)
+  7  );
+CREATE TABLE Student (
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  CREATE TABLE S1(
+  2      roll_no INT PRIMARY KEY,
+  3      name VARCHAR(255),
+  4      category VARCHAR(50),
+  5      district VARCHAR(100),
+  6      stagg VARCHAR(50)
+  7* )
+SQL> /
+
+Table created.
+
+SQL> CREATE TABLE StudentRank (
+  2      roll_no INT PRIMARY KEY,
+  3      marks INT,
+  4      rank INT
+  5  );
+
+Table created.
+
+SQL> select s1.name from s1 inner join studentrank on s1.roll_no =studentrank.roll_no ;
+
+no rows selected
+
+SQL> -- Inserting data into S1 tableINSERT INTO S1 (roll_no, name, category, district, stagg)VALUES    (1, 'John Doe', 'Science', 'New York', 'A'),    (2, 'Jane Smith', 'Arts', 'Los Angeles', 'B'),    (3, 'Alice Johnson', 'Commerce', 'Chicago', 'C');-- Inserting data into StudentRank tableINSERT INTO StudentRank (roll_no, marks, rank)VALUES    (1, 85, 1),    (2, 78, 2),    (3, 90, 1);
+SQL> /
+
+no rows selected
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  INSERT ALL
+  2      INTO S1 (roll_no, name, category, district, stagg) VALUES (1, 'John Doe', 'Science', 'New York', 'A')
+  3      INTO S1 (roll_no, name, category, district, stagg) VALUES (2, 'Jane Smith', 'Arts', 'Los Angeles', 'B')
+  4      INTO S1 (roll_no, name, category, district, stagg) VALUES (3, 'Alice Johnson', 'Commerce', 'Chicago', 'C')
+  5      INTO StudentRank (roll_no, marks, rank) VALUES (1, 85, 1)
+  6      INTO StudentRank (roll_no, marks, rank) VALUES (2, 78, 2)
+  7      INTO StudentRank (roll_no, marks, rank) VALUES (3, 90, 1)
+  8* SELECT * FROM DUAL;
+  9  /
+SELECT * FROM DUAL;
+                  *
+ERROR at line 8:
+ORA-00911: invalid character
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  INSERT ALL
+  2      INTO S1 (roll_no, name, category, district, stagg) VALUES (1, 'John Doe', 'Science', 'New York', 'A')
+  3      INTO S1 (roll_no, name, category, district, stagg) VALUES (2, 'Jane Smith', 'Arts', 'Los Angeles', 'B')
+  4      INTO S1 (roll_no, name, category, district, stagg) VALUES (3, 'Alice Johnson', 'Commerce', 'Chicago', 'C')
+  5      INTO StudentRank (roll_no, marks, rank) VALUES (1, 85, 1)
+  6      INTO StudentRank (roll_no, marks, rank) VALUES (2, 78, 2)
+  7      INTO StudentRank (roll_no, marks, rank) VALUES (3, 90, 1)
+  8* SELECT * FROM DUAL
+SQL> /
+
+6 rows created.
+
+SQL> select s1.name from s1 inner join studentrank on s1.roll_no =studentrank.roll_no ;
+
+NAME
+--------------------------------------------------------------------------------
+John Doe
+Jane Smith
+Alice Johnson
+
+SQL> select s1.name,studentrank.rank from s1 inner join studentrank on s1.roll_no =studentrank.roll_no ;
+
+NAME
+--------------------------------------------------------------------------------
+      RANK
+----------
+John Doe
+         1
+
+Jane Smith
+         2
+
+Alice Johnson
+         1
+
+
+SQL> select s1.name,studentrank.rank from s1 inner join studentrank on s1.roll_no =studentrank.roll_no join s1 s on s.roll_no = s1.roll_no where s.rank=s1.rank and s.district != s1.district;
+select s1.name,studentrank.rank from s1 inner join studentrank on s1.roll_no =studentrank.roll_no join s1 s on s.roll_no = s1.roll_no where s.rank=s1.rank and s.district != s1.district
+                                                                                                                                                   *
+ERROR at line 1:
+ORA-00904: "S1"."RANK": invalid identifier
+
+
+SQL> SELECT * FROM S1;
+
+   ROLL_NO
+----------
+NAME
+--------------------------------------------------------------------------------
+CATEGORY
+--------------------------------------------------
+DISTRICT
+--------------------------------------------------------------------------------
+STAGG
+--------------------------------------------------
+         1
+John Doe
+Science
+
+   ROLL_NO
+----------
+NAME
+--------------------------------------------------------------------------------
+CATEGORY
+--------------------------------------------------
+DISTRICT
+--------------------------------------------------------------------------------
+STAGG
+--------------------------------------------------
+New York
+A
+
+
+   ROLL_NO
+----------
+NAME
+--------------------------------------------------------------------------------
+CATEGORY
+--------------------------------------------------
+DISTRICT
+--------------------------------------------------------------------------------
+STAGG
+--------------------------------------------------
+         2
+Jane Smith
+Arts
+
+   ROLL_NO
+----------
+NAME
+--------------------------------------------------------------------------------
+CATEGORY
+--------------------------------------------------
+DISTRICT
+--------------------------------------------------------------------------------
+STAGG
+--------------------------------------------------
+Los Angeles
+B
+
+
+   ROLL_NO
+----------
+NAME
+--------------------------------------------------------------------------------
+CATEGORY
+--------------------------------------------------
+DISTRICT
+--------------------------------------------------------------------------------
+STAGG
+--------------------------------------------------
+         3
+Alice Johnson
+Commerce
+
+   ROLL_NO
+----------
+NAME
+--------------------------------------------------------------------------------
+CATEGORY
+--------------------------------------------------
+DISTRICT
+--------------------------------------------------------------------------------
+STAGG
+--------------------------------------------------
+Chicago
+C
+
+
+SQL> SELECT s1.name AS student_nameFROM Student s1JOIN Student s2 ON s1.roll_no <> s2.roll_no AND s1.rank = s2.rankWHERE s1.district <> s2.district;
+SELECT s1.name AS student_nameFROM Student s1JOIN Student s2 ON s1.roll_no <> s2.roll_no AND s1.rank = s2.rankWHERE s1.district <> s2.district
+                                   *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1* SELECT s1.name AS student_name FROM Student s1 JOIN Student s2 ON s1.roll_no <> s2.roll_no AND s1.rank = s2.rank WHERE s1.district <> s2.district
+SQL> /
+SELECT s1.name AS student_name FROM Student s1 JOIN Student s2 ON s1.roll_no <> s2.roll_no AND s1.rank = s2.rank WHERE s1.district <> s2.district
+                                                                                                         *
+ERROR at line 1:
+ORA-00904: "S2"."RANK": invalid identifier
+
+
+SQL> SELECT s1.*FROM Student s1JOIN Student s2 ON s1.category = s2.category AND s1.rank = s2.rankWHERE s1.roll_no <> s2.roll_noORDER BY s1.category, s1.rank, s1.roll_no;
+SELECT s1.*FROM Student s1JOIN Student s2 ON s1.category = s2.category AND s1.rank = s2.rankWHERE s1.roll_no <> s2.roll_noORDER BY s1.category, s1.rank, s1.roll_no
+                               *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT s1.name
+  2  FROM S1 s1
+  3  JOIN StudentRank sr1 ON s1.roll_no = sr1.roll_no
+  4  JOIN StudentRank sr2 ON sr1.rank = sr2.rank
+  5  JOIN S1 s2 ON sr2.roll_no = s2.roll_no
+  6* WHERE s1.roll_no <> s2.roll_no AND s1.district <> s2.district;
+SQL> /
+WHERE s1.roll_no <> s2.roll_no AND s1.district <> s2.district;
+                                                             *
+ERROR at line 6:
+ORA-00911: invalid character
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT s1.name
+  2  FROM S1 s1
+  3  JOIN StudentRank sr1 ON s1.roll_no = sr1.roll_no
+  4  JOIN StudentRank sr2 ON sr1.rank = sr2.rank
+  5  JOIN S1 s2 ON sr2.roll_no = s2.roll_no
+  6* WHERE s1.roll_no <> s2.roll_no AND s1.district <> s2.district
+SQL> /
+
+NAME
+--------------------------------------------------------------------------------
+Alice Johnson
+John Doe
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT s1.name
+  2  FROM S1 s1
+  3  JOIN StudentRank sr1 ON s1.roll_no = sr1.roll_no
+  4  JOIN StudentRank sr2 ON sr1.rank = sr2.rank
+  5  JOIN S1 s2 ON sr2.roll_no = s2.roll_no
+  6* WHERE s1.CATEGORY =S2.CATEGORY
+SQL> /
+
+NAME
+--------------------------------------------------------------------------------
+John Doe
+Jane Smith
+Alice Johnson
+
+SQL> SELECT * FROM S1;
+
+   ROLL_NO
+----------
+NAME
+--------------------------------------------------------------------------------
+CATEGORY
+--------------------------------------------------
+DISTRICT
+--------------------------------------------------------------------------------
+STAGG
+--------------------------------------------------
+         1
+John Doe
+Science
+
+   ROLL_NO
+----------
+NAME
+--------------------------------------------------------------------------------
+CATEGORY
+--------------------------------------------------
+DISTRICT
+--------------------------------------------------------------------------------
+STAGG
+--------------------------------------------------
+New York
+A
+
+
+   ROLL_NO
+----------
+NAME
+--------------------------------------------------------------------------------
+CATEGORY
+--------------------------------------------------
+DISTRICT
+--------------------------------------------------------------------------------
+STAGG
+--------------------------------------------------
+         2
+Jane Smith
+Arts
+
+   ROLL_NO
+----------
+NAME
+--------------------------------------------------------------------------------
+CATEGORY
+--------------------------------------------------
+DISTRICT
+--------------------------------------------------------------------------------
+STAGG
+--------------------------------------------------
+Los Angeles
+B
+
+
+   ROLL_NO
+----------
+NAME
+--------------------------------------------------------------------------------
+CATEGORY
+--------------------------------------------------
+DISTRICT
+--------------------------------------------------------------------------------
+STAGG
+--------------------------------------------------
+         3
+Alice Johnson
+Commerce
+
+   ROLL_NO
+----------
+NAME
+--------------------------------------------------------------------------------
+CATEGORY
+--------------------------------------------------
+DISTRICT
+--------------------------------------------------------------------------------
+STAGG
+--------------------------------------------------
+Chicago
+C
+
+
+SQL> SET LINESIZE 2000;
+SQL> SELECT * FROM S1;
+
+   ROLL_NO NAME
+                                                                                                                   CATEGORY
+              DISTRICT                                                                                             STAGG
+---------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------------------------------------------------- ---------------------------------------------------------------------------------------------------- --------------------------------------------------
+         1 John Doe
+                                                                                                                   Science
+              New York                                                                                             A
+         2 Jane Smith
+                                                                                                                   Arts
+              Los Angeles                                                                                          B
+         3 Alice Johnson
+                                                                                                                   Commerce
+              Chicago                                                                                              C
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT s1.roll_no, s1.name, s1.category, s1.district, s1.stagg
+  2  FROM S1 s1
+  3  JOIN StudentRank sr1 ON s1.roll_no = sr1.roll_no
+  4  JOIN StudentRank sr2 ON sr1.rank = sr2.rank
+  5  JOIN S1 s2 ON sr2.roll_no = s2.roll_no
+  6* WHERE s1.roll_no <> s2.roll_no AND s1.category = s2.category;
+SQL> /
+WHERE s1.roll_no <> s2.roll_no AND s1.category = s2.category;
+                                                            *
+ERROR at line 6:
+ORA-00911: invalid character
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT s1.roll_no, s1.name, s1.category, s1.district, s1.stagg
+  2  FROM S1 s1
+  3  JOIN StudentRank sr1 ON s1.roll_no = sr1.roll_no
+  4  JOIN StudentRank sr2 ON sr1.rank = sr2.rank
+  5  JOIN S1 s2 ON sr2.roll_no = s2.roll_no
+  6* WHERE s1.roll_no <> s2.roll_no AND s1.category = s2.category
+SQL> /
+
+no rows selected
+
+SQL> CREATE TABLE ODK (
+  2      order_no INT PRIMARY KEY,
+  3      order_date DATE,
+  4      purchase_amount DECIMAL(10, 2),
+  5      cust_id INT,
+  6      saleman_id INT
+  7  );
+
+Table created.
+
+SQL> INSERT ALL
+  2      INTO ODK (order_no, order_date, purchase_amount, cust_id, saleman_id) VALUES (6, '2024-05-23', 5500.00, 106, 206)
+  3      INTO ODK (order_no, order_date, purchase_amount, cust_id, saleman_id) VALUES (7, '2024-05-24', 4800.00, 107, 207)
+  4      INTO ODK (order_no, order_date, purchase_amount, cust_id, saleman_id) VALUES (8, '2024-05-25', 6200.00, 108, 208)
+  5  SELECT * FROM dual;
+    INTO ODK (order_no, order_date, purchase_amount, cust_id, saleman_id) VALUES (6, '2024-05-23', 5500.00, 106, 206)
+                                                                                     *
+ERROR at line 2:
+ORA-01861: literal does not match format string
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  INSERT ALL
+  2      INTO ODK (order_no, order_date, purchase_amount, cust_id, saleman_id) VALUES (6, '2024-05-23', 5500.00, 106, 206)
+  3      INTO ODK (order_no, order_date, purchase_amount, cust_id, saleman_id) VALUES (7, '2024-05-24', 4800.00, 107, 207)
+  4      INTO ODK (order_no, order_date, purchase_amount, cust_id, saleman_id) VALUES (8, '2024-05-25', 6200.00, 108, 208)
+  5* SELECT * FROM dual
+SQL> /
+    INTO ODK (order_no, order_date, purchase_amount, cust_id, saleman_id) VALUES (6, '2024-05-23', 5500.00, 106, 206)
+                                                                                     *
+ERROR at line 2:
+ORA-01861: literal does not match format string
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  INSERT ALL
+  2      INTO ODK (order_no, order_date, purchase_amount, cust_id, saleman_id) VALUES (6, '24-MAY-22', 5500.00, 106, 206)
+  3      INTO ODK (order_no, order_date, purchase_amount, cust_id, saleman_id) VALUES (7, '24-JUNE-24', 4800.00, 107, 207)
+  4      INTO ODK (order_no, order_date, purchase_amount, cust_id, saleman_id) VALUES (8, '24-JULY-25', 6200.00, 108, 208)
+  5* SELECT * FROM dual
+SQL> /
+
+3 rows created.
+
+SQL> select
+  2  order date,purchase amount
+  3  case when purchase_amount > 3000 then 'yes' else 'no' end as archived,
+  4  ((purchase_amount - 3000 )*0.60) as un_archived
+  5  from orders;
+order date,purchase amount
+*
+ERROR at line 2:
+ORA-00936: missing expression
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select
+  2  order date,purchase_amount
+  3  case when purchase_amount > 3000 then 'yes' else 'no' end as archived,
+  4  ((purchase_amount - 3000 )*0.60) as un_archived
+  5* from orders
+SQL> /
+order date,purchase_amount
+*
+ERROR at line 2:
+ORA-00936: missing expression
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select
+  2  order date,purchase_amount,
+  3  case when purchase_amount > 3000 then 'yes' else 'no' end as archived,
+  4  ((purchase_amount - 3000 )*0.60) as un_archived
+  5* from orders
+SQL> /
+order date,purchase_amount,
+*
+ERROR at line 2:
+ORA-00936: missing expression
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select
+  2  order_date,purchase_amount,
+  3  case when purchase_amount > 3000 then 'yes' else 'no' end as archived,
+  4  ((purchase_amount - 3000 )*0.60) as un_archived
+  5* from orders
+SQL> /
+((purchase_amount - 3000 )*0.60) as un_archived
+  *
+ERROR at line 4:
+ORA-00904: "PURCHASE_AMOUNT": invalid identifier
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  SELECT
+  2      order_no,
+  3      purchase_amount,
+  4      CASE WHEN purchase_amount > 3000 THEN 'Yes' ELSE 'No' END AS archived,
+  5      ((purchase_amount - 3000) / 6000) * 100 AS unachieved_percentage
+  6  FROM
+  7*     Orders;
+SQL> /
+    Orders;
+          *
+ERROR at line 7:
+ORA-00911: invalid character
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  SELECT
+  2      order_no,
+  3      purchase_amount,
+  4      CASE WHEN purchase_amount > 3000 THEN 'Yes' ELSE 'No' END AS archived,
+  5      ((purchase_amount - 3000) / 6000) * 100 AS unachieved_percentage
+  6  FROM
+  7*     Orders;
+SQL> /\
+    Orders;
+          *
+ERROR at line 7:
+ORA-00911: invalid character
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  SELECT
+  2      order_no,
+  3      purchase_amount,
+  4      CASE WHEN purchase_amount > 3000 THEN 'Yes' ELSE 'No' END AS archived,
+  5      ((purchase_amount - 3000) / 6000) * 100 AS unachieved_percentage
+  6  FROM
+  7*     Orders;
+SQL> /
+    Orders;
+          *
+ERROR at line 7:
+ORA-00911: invalid character
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  SELECT
+  2      order_no,
+  3      purchase_amount,
+  4      CASE WHEN purchase_amount > 3000 THEN 'Yes' ELSE 'No' END AS archived,
+  5      ((purchase_amount - 3000) / 6000) * 100 AS unachieved_percentage
+  6  FROM
+  7*     Orders
+SQL> /
+    ((purchase_amount - 3000) / 6000) * 100 AS unachieved_percentage
+      *
+ERROR at line 5:
+ORA-00904: "PURCHASE_AMOUNT": invalid identifier
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  SELECT
+  2      order_no,
+  3      purchase_amount,
+  4      CASE WHEN purchase_amount > 3000 THEN 'Yes' ELSE 'No' END AS archived,
+  5      ((purchase_amount - 3000) / 6000) * 100 AS unachieved_percentage
+  6  FROM
+  7*     ODK
+SQL> /
+
+  ORDER_NO PURCHASE_AMOUNT ARC UNACHIEVED_PERCENTAGE
+---------- --------------- --- ---------------------
+         6            5500 Yes            41.6666667
+         7            4800 Yes                    30
+         8            6200 Yes            53.3333333
+
+SQL>
